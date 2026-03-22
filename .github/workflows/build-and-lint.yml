@@ -14,7 +14,9 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Install clang-format
-        run: brew install clang-format
+        run: |
+          brew install clang-format@16
+          brew link --overwrite clang-format@16
 
       - name: Check code format
         run: |
