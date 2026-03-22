@@ -1,0 +1,34 @@
+Загружено 3 аэропортов. Система готова к работе.
+> find SVO
+SVO → Sheremetyevo International Airport
+> add ZZZ:Nowhere International Airport
+Аэропорт 'ZZZ' добавлен в базу.
+> find ZZZ
+ZZZ → Nowhere International Airport
+> delete ZZZ
+Аэропорт 'ZZZ' удалён из базы.
+> find ZZZ
+Аэропорт с кодом 'ZZZ' не найден в базе.
+> save
+База сохранена: 3 аэропортов.
+> add ZZZ:Hello World
+Аэропорт 'Hello World' добавлен в базу.
+> save
+База сохранена: 4 аэропортов.
+> find ZZZ
+ZZZ → Hello World
+> delete ZZZ
+Аэропорт 'ZZZ' удалён из базы.
+> save
+База сохранена: 3 аэропортов.
+> find ZZZ
+Аэропорт с кодом 'ZZZ' не найден в базе.
+> find LED
+LED → Pulkovo
+> find DME
+DME → Domodedovo
+> delete DME
+Аэропорт 'DME' удалён из базы.
+> save
+База сохранена: 2 аэропортов.
+> quit
