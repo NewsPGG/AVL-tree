@@ -107,7 +107,9 @@ static AVLNode* insert(AVLNode* node, const char code[], const char name[]) {
     } else {
         free(node->name);
         node->name = malloc(strlen(name) + 1);
-        if (node->name) strcpy(node->name, name);
+        if (node->name) {
+            strcpy(node->name, name);
+        }
         return node;
     }
 

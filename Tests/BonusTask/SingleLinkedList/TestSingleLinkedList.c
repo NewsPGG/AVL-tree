@@ -1,7 +1,7 @@
 #include "../../../src/BonusTask/SingleLinkedList/SingleLinkedList.h"
 #include <assert.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 void CreateNewLIst()
 {
@@ -58,23 +58,22 @@ void DeleteAllElements()
 
     char keys[10][10];
     for (int i = 1; i <= 10; i++) {
-        sprintf(keys[i-1], "%d", i);
-        printf("i=%d, key='%s'\n", i, keys[i-1]);
-        int res = insert(list, keys[i-1], keys[i-1]);
-        printf("insert returned %d\n", res);
+        sprintf(keys[i - 1], "%d", i);
+        int res = insert(list, keys[i - 1], keys[i - 1]);
         assert(res);
         assert(find(list, keys[i-1]) != NULL);
     }
 
     for (int i = 1; i <= 10; i++) {
-        assert(delete(list, keys[i-1]));
-        assert(find(list, keys[i-1]) == NULL);
+        assert(delete(list, keys[i - 1]));
+        assert(find(list, keys[i - 1]) == NULL);
     }
 
     deleteList(list);
 }
 
-int main() {
+int main()
+{
     CreateNewLIst();
     InsertOneElement();
     DeleteOneElement();

@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
     if (argc != 2) {
         return -1;
     }
@@ -37,9 +38,13 @@ int main(int argc, char* argv[]) {
     char input[512];
     while (1) {
         printf("> ");
-        if (!fgets(input, sizeof(input), stdin)) break;
+        if (!fgets(input, sizeof(input), stdin)) {
+            break;
+        }
         input[strcspn(input, "\r\n")] = '\0';
-        if (strlen(input) == 0) continue;
+        if (strlen(input) == 0) {
+            continue;
+        }
 
         char* space = strchr(input, ' ');
         char* cmd = input;

@@ -151,7 +151,8 @@ void TestRLBalanceAVLTree()
     FreeAVLTree(tree);
 }
 
-int main() {
+int main()
+{
     TestCreateAVLTree();
     TestInsertOneElementAVLTree();
     TestDeleteOneElementAVLTree();

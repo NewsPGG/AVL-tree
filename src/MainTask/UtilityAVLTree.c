@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
-static void find(AVLTree* tree, char code[]) {
+static void find(AVLTree* tree, char code[])
+{
     AVLNode* airport = AVLTreeFind(tree, code);
     if (airport == NULL) {
         printf("Аэропорт с кодом '%s' не найден в базе.\n", code);
@@ -11,7 +12,8 @@ static void find(AVLTree* tree, char code[]) {
     }
 }
 
-static void add(AVLTree* tree, char codeAndName[]) {
+static void add(AVLTree* tree, char codeAndName[])
+{
     char* colon = strchr(codeAndName, ':');
 
     if (colon == NULL) {
@@ -35,7 +37,8 @@ static void add(AVLTree* tree, char codeAndName[]) {
     }
 }
 
-static void delete(AVLTree* tree, char code[]) {
+static void delete(AVLTree* tree, char code[])
+{
     if (AVLTreeDelete(tree, code)) {
         printf("Аэропорт '%s' удалён из базы.\n", code);
     } else {
@@ -43,7 +46,8 @@ static void delete(AVLTree* tree, char code[]) {
     }
 }
 
-static void saveRecursive(AVLNode* node, FILE* f) {
+static void saveRecursive(AVLNode* node, FILE* f)
+{
     if (node == NULL) {
         return;
     }
@@ -53,7 +57,8 @@ static void saveRecursive(AVLNode* node, FILE* f) {
     saveRecursive(node->right, f);
 }
 
-static int countNodes(AVLNode* node) {
+static int countNodes(AVLNode* node)
+{
     if (node == NULL) {
         return 0;
     }
@@ -61,7 +66,8 @@ static int countNodes(AVLNode* node) {
     return 1 + countNodes(node->left) + countNodes(node->right);
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
     if (argc != 2) {
         return -1;
     }
@@ -99,7 +105,9 @@ int main(int argc, char* argv[]) {
             break;
         }
         input[strcspn(input, "\r\n")] = '\0';
-        if (strlen(input) == 0) continue;
+        if (strlen(input) == 0) {
+            continue;
+        }
 
         char* space = strchr(input, ' ');
         char* cmd = input;
@@ -111,7 +119,9 @@ int main(int argc, char* argv[]) {
                 args++;
             }
         }
-        if (strlen(cmd) == 0) continue;
+        if (strlen(cmd) == 0) {
+            continue;
+        }
 
         if (strcmp(cmd, "quit") == 0) {
             break;
