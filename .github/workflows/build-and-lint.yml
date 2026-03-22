@@ -31,8 +31,11 @@ jobs:
       - name: Run tests with ctest
         run: ctest --test-dir build --output-on-failure
 
+      - name: Check a.out exists
+        run: ls -la build/a.out
+
       - name: Run tests with script
-        run: chmod +x run_tests.sh && ./Tests/run_tests.sh
+        run: chmod +x run_tests.sh && ./run_tests.sh
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
