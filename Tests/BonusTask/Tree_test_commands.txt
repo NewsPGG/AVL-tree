@@ -1,0 +1,13 @@
+find SVO
+add ZZZ:Nowhere International Airport
+find ZZZ
+delete ZZZ
+find ZZZ
+add ZZZ:Hello World
+find ZZZ
+delete ZZZ
+find ZZZ
+find LED
+find DME
+delete DME
+quit
