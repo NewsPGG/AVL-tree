@@ -100,9 +100,9 @@ static AVLNode* insert(AVLNode* node, const char code[], const char name[]) {
         return CreateAVLNode(code, name);
     }
 
-    if (strcmp(node->code, code) < 0) {
+    if (strcmp(code, node->code) < 0) {
         node->left = insert(node->left, code, name);
-    } else if (strcmp(node->code, code) > 0) {
+    } else if (strcmp(code, node->code) > 0) {
         node->right = insert(node->right, code, name);
     } else {
         free(node->name);
@@ -134,13 +134,14 @@ static AVLNode* insert(AVLNode* node, const char code[], const char name[]) {
     return node;
 }
 
-void AVLTreeInsert(AVLTree* tree, const char code[], const char name[])
+int AVLTreeInsert(AVLTree* tree, const char code[], const char name[])
 {
     if (tree == NULL) {
-        return;
+        return 0;
     }
 
     tree->root = insert(tree->root, code, name);
+    return 1;
 }
 
 AVLNode* AVLTreeFind(AVLTree* tree, const char code[])
@@ -231,13 +232,14 @@ static AVLNode* deleteNode(AVLNode* node, const char code[])
     return node;
 }
 
-void AVLTreeDelete(AVLTree* tree, const char code[])
+int AVLTreeDelete(AVLTree* tree, const char code[])
 {
     if (tree == NULL) {
-        return;
+        return 0;
     }
 
     tree->root = deleteNode(tree->root, code);
+    return 1;
 }
 
 void NodeFree(AVLNode* node)

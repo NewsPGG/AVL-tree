@@ -24,8 +24,9 @@ AVLNode* CreateAVLNode(const char code[], const char name[]);
 /*
  * Inserts a value into an AVL tree. After insertion,
  * it checks the balance and rebalances it if necessary.
+ * Returns 1 on successful insertion, otherwise 0.
  */
-void AVLTreeInsert(AVLTree* tree, const char code[], const char name[]);
+int AVLTreeInsert(AVLTree* tree, const char code[], const char name[]);
 
 // Finds an element in an AVL tree.
 AVLNode* AVLTreeFind(AVLTree* tree, const char code[]);
@@ -33,8 +34,9 @@ AVLNode* AVLTreeFind(AVLTree* tree, const char code[]);
 /*
  * Deletes a value from an AVL tree. After deletion,
  * it checks the balance and rebalances it if necessary.
+ * Returns 1 on successful deletion, otherwise 0.
  */
-void AVLTreeDelete(AVLTree* tree, const char code[]);
+int AVLTreeDelete(AVLTree* tree, const char code[]);
 
 // Deletes a node and all its kids.
 void NodeFree(AVLNode* node);
