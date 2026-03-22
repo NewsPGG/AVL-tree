@@ -15,16 +15,26 @@ AVLTree* CreateAVLTree()
     return tree;
 }
 
-AVLNode* CreateAVLNode(const char value[])
+AVLNode* CreateAVLNode(const char code[], const char name[])
 {
-    size_t len = strlen(value);
-    AVLNode* node = malloc(sizeof(AVLNode) + len + 1);
+    AVLNode* node = malloc(sizeof(AVLNode));
 
     if (node == NULL) {
         return NULL;
     }
 
-    strcpy(node->value, value);
+    node->code = malloc(strlen(code) + 1);
+    node->name = malloc(strlen(name) + 1);
+
+    if (node->code == NULL || node->name == NULL) {
+        free(node->code);
+        free(node->name);
+        free(node);
+        return NULL;
+    }
+
+    strcpy(node->code, code);
+    strcpy(node->name, name);
     node->left = NULL;
     node->right = NULL;
     node->height = 0;
@@ -85,16 +95,19 @@ static AVLNode* rightRotate(AVLNode* node)
     return left_node;
 }
 
-static AVLNode* insert(AVLNode* node, const char value[]) {
+static AVLNode* insert(AVLNode* node, const char code[], const char name[]) {
     if (node == NULL) {
-        return CreateAVLNode(value);
+        return CreateAVLNode(code, name);
     }
 
-    if (strcmp(node->value, value) < 0) {
-        node->left = insert(node->left, value);
-    } else if (strcmp(node->value, value) > 0) {
-        node->right = insert(node->right, value);
+    if (strcmp(node->code, code) < 0) {
+        node->left = insert(node->left, code, name);
+    } else if (strcmp(node->code, code) > 0) {
+        node->right = insert(node->right, code, name);
     } else {
+        free(node->name);
+        node->name = malloc(strlen(name) + 1);
+        if (node->name) strcpy(node->name, name);
         return node;
     }
 
@@ -121,31 +134,53 @@ static AVLNode* insert(AVLNode* node, const char value[]) {
     return node;
 }
 
-void AVLTreeInsert(AVLTree* tree, const char value[])
+void AVLTreeInsert(AVLTree* tree, const char code[], const char name[])
 {
     if (tree == NULL) {
         return;
     }
 
-    tree->root = insert(tree->root, value);
+    tree->root = insert(tree->root, code, name);
 }
 
-static AVLNode* deleteNode(AVLNode* node, const char value[]) {
+AVLNode* AVLTreeFind(AVLTree* tree, const char code[])
+{
+    AVLNode* current = tree->root;
+
+    while (current != NULL) {
+        if (strcmp(code, current->code) == 0) {
+            return current;
+        } else if (strcmp(code, current->code) < 0) {
+            current = current->left;
+        } else {
+            current = current->right;
+        }
+    }
+
+    return NULL;
+}
+
+static AVLNode* deleteNode(AVLNode* node, const char code[])
+{
     if (node == NULL) {
         return NULL;
     }
 
-    if (strcmp(value, node->value) < 0) {
-        node->left = deleteNode(node->left, value);
-    } else if (strcmp(value, node->value) > 0) {
-        node->right = deleteNode(node->right, value);
+    if (strcmp(code, node->code) < 0) {
+        node->left = deleteNode(node->left, code);
+    } else if (strcmp(code, node->code) > 0) {
+        node->right = deleteNode(node->right, code);
     } else {
         if (node->left == NULL) {
             AVLNode* rightChild = node->right;
+            free(node->code);
+            free(node->name);
             free(node);
             return rightChild;
         } else if (node->right == NULL) {
             AVLNode* leftChild = node->left;
+            free(node->code);
+            free(node->name);
             free(node);
             return leftChild;
         }
@@ -155,7 +190,7 @@ static AVLNode* deleteNode(AVLNode* node, const char value[]) {
             successor = successor->left;
         }
 
-        AVLNode* newNode = CreateAVLNode(successor->value);
+        AVLNode* newNode = CreateAVLNode(successor->code, successor->name);
         if (newNode == NULL) {
             return node;
         }
@@ -164,9 +199,11 @@ static AVLNode* deleteNode(AVLNode* node, const char value[]) {
         newNode->right = node->right;
         newNode->height = node->height;
 
+        free(node->code);
+        free(node->name);
         free(node);
 
-        newNode->right = deleteNode(newNode->right, successor->value);
+        newNode->right = deleteNode(newNode->right, successor->code);
 
         node = newNode;
     }
@@ -194,28 +231,13 @@ static AVLNode* deleteNode(AVLNode* node, const char value[]) {
     return node;
 }
 
-AVLNode* AVLTreeFind(AVLTree* tree, const char value[]) {
-    AVLNode* current = tree->root;
-
-    while (current != NULL) {
-        if (strcmp(value, current->value) == 0) {
-            return current;
-        } else if (strcmp(value, current->value) < 0) {
-            current = current->left;
-        } else {
-            current = current->right;
-        }
-    }
-
-    return NULL;
-}
-
-void AVLTreeDelete(AVLTree* tree, const char value[]) {
+void AVLTreeDelete(AVLTree* tree, const char code[])
+{
     if (tree == NULL) {
         return;
     }
 
-    tree->root = deleteNode(tree->root, value);
+    tree->root = deleteNode(tree->root, code);
 }
 
 void NodeFree(AVLNode* node)
@@ -224,20 +246,16 @@ void NodeFree(AVLNode* node)
         return;
     }
 
-    if (node->left != NULL) {
-        NodeFree(node->left);
-        node->left = NULL;
-    }
-
-    if (node->right != NULL) {
-        NodeFree(node->right);
-        node->right = NULL;
-    }
+    NodeFree(node->left);
+    NodeFree(node->right);
+    free(node->code);
+    free(node->name);
 
     free(node);
 }
 
-void FreeAVLTree(AVLTree* tree) {
+void FreeAVLTree(AVLTree* tree)
+{
     if (tree == NULL) {
         return;
     }
