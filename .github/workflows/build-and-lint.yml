@@ -15,8 +15,8 @@ jobs:
 
       - name: Install clang-format
         run: |
-          brew install clang-format@16
-          brew link --overwrite clang-format@16
+          brew install clang-format
+          clang-format --version
 
       - name: Check code format
         run: |
