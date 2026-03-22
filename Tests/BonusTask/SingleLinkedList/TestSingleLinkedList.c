@@ -61,7 +61,7 @@ void DeleteAllElements()
         sprintf(keys[i - 1], "%d", i);
         int res = insert(list, keys[i - 1], keys[i - 1]);
         assert(res);
-        assert(find(list, keys[i-1]) != NULL);
+        assert(find(list, keys[i - 1]) != NULL);
     }
 
     for (int i = 1; i <= 10; i++) {

@@ -95,7 +95,8 @@ static AVLNode* rightRotate(AVLNode* node)
     return left_node;
 }
 
-static AVLNode* insert(AVLNode* node, const char code[], const char name[]) {
+static AVLNode* insert(AVLNode* node, const char code[], const char name[])
+{
     if (node == NULL) {
         return CreateAVLNode(code, name);
     }

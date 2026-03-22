@@ -52,7 +52,9 @@ int main(int argc, char* argv[])
         if (space) {
             *space = '\0';
             args = space + 1;
-            while (*args == ' ') args++;
+            while (*args == ' ') {
+                args++;
+            }
         }
         if (strlen(cmd) == 0) {
             continue;

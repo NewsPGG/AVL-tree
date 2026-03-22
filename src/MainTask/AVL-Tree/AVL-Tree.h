@@ -3,8 +3,8 @@
 typedef struct AVLNode {
     char* code;
     char* name;
-    struct AVLNode *left;
-    struct AVLNode *right;
+    struct AVLNode* left;
+    struct AVLNode* right;
     int height;
 } AVLNode;
 
