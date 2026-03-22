@@ -26,7 +26,10 @@ jobs:
       - name: Build project
         run: cmake --build build
 
-      - name: Run tests
+      - name: Run tests with ctest
+        run: ctest --test-dir build --output-on-failure
+
+      - name: Run tests with script
         run: chmod +x run_tests.sh && ./run_tests.sh
 
       - name: Upload test results
