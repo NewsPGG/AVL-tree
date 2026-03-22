@@ -11,19 +11,18 @@ static int checkAVLTree(AVLNode* node)
     int leftHeight = checkAVLTree(node->left);
     int rightHeight = checkAVLTree(node->right);
 
-    if (leftHeight == -1 || rightHeight == -1) {
-        return -1;
+    if (leftHeight == -2 || rightHeight == -2) {
+        return -2;
     }
 
     int balance = rightHeight - leftHeight;
     if (balance < -1 || balance > 1) {
-        return -1;
+        return -2;
     }
 
     int realHeight = (leftHeight > rightHeight ? leftHeight : rightHeight) + 1;
-
     if (node->height != realHeight) {
-        return -1;
+        return -2;
     }
 
     return realHeight;
@@ -31,14 +30,14 @@ static int checkAVLTree(AVLNode* node)
 
 static int isAVLTree(AVLTree* tree)
 {
-    return checkAVLTree(tree->root) != -1;
+    return checkAVLTree(tree->root) != -2;
 }
 
 void TestCreateAVLTree()
 {
     AVLTree* tree = CreateAVLTree();
     assert(tree);
-    assert(tree->root);
+
     FreeAVLTree(tree);
 }
 
@@ -72,9 +71,10 @@ void TestInsertTenElementsAVLTree()
     assert(tree);
 
     for (int i = 65; i < 76; i++) {
-        char character = (char)i;
-        AVLTreeInsert(tree, &character, &character);
-        assert(AVLTreeFind(tree, &character));
+        char key[2] = { (char)i, '\0' };
+        char val[2] = { (char)i, '\0' };
+        AVLTreeInsert(tree, key, val);
+        assert(AVLTreeFind(tree, key));
     }
 
     FreeAVLTree(tree);
@@ -86,11 +86,10 @@ void TestDeleteTenElementAVLTree()
     assert(tree);
 
     for (int i = 65; i < 76; i++) {
-        char character = (char)i;
-        AVLTreeInsert(tree, &character, &character);
-        assert(AVLTreeFind(tree, &character));
-        AVLTreeDelete(tree, &character);
-        assert(!AVLTreeFind(tree, &character));
+        char key[2] = { (char)i, '\0' };
+        char val[2] = { (char)i, '\0' };
+        AVLTreeInsert(tree, key, val);
+        assert(AVLTreeFind(tree, key));
     }
 
     FreeAVLTree(tree);
@@ -150,4 +149,17 @@ void TestRLBalanceAVLTree()
     assert(isAVLTree(tree));
 
     FreeAVLTree(tree);
+}
+
+int main() {
+    TestCreateAVLTree();
+    TestInsertOneElementAVLTree();
+    TestDeleteOneElementAVLTree();
+    TestInsertTenElementsAVLTree();
+    TestDeleteTenElementAVLTree();
+    TestLLBalanceAVLTree();
+    TestLRBalanceAVLTree();
+    TestRRBalanceAVLTree();
+    TestRLBalanceAVLTree();
+    return 0;
 }

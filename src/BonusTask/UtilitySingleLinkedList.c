@@ -1,5 +1,4 @@
 #include "SingleLinkedList/SingleLinkedList.h"
-#include "SingleLinkedList/SingleLinkedList.c"
 #include <stdio.h>
 #include <string.h>
 

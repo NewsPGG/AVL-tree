@@ -1,5 +1,4 @@
 #include "AVL-Tree/AVL-Tree.h"
-#include "AVL-Tree/AVL-Tree.c"
 #include <stdio.h>
 #include <string.h>
 
