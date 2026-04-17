@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
     if (argc < 2) {
         return 1;
     }
@@ -11,8 +12,7 @@ int main(int argc, char** argv) {
 
     char keys[10000][4];
     for (int i = 0; i < 10000; i++) {
-        sprintf(keys[i], "%c%c%c", 'A' + (i / 676) % 26, 'A' + (i / 26) % 26,
-                'A' + i % 26);
+        sprintf(keys[i], "%c%c%c", 'A' + i / 676 % 26, 'A' + i / 26 % 26, 'A' + i % 26);
         insert(list, keys[i], "AirportName");
     }
 
