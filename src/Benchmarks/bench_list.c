@@ -1,19 +1,18 @@
+#include "../BonusTask/SingleLinkedList/SingleLinkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../BonusTask/SingleLinkedList/SingleLinkedList.h"
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
     if (argc < 2) {
         return 1;
     }
-
     List* list = newList();
 
     char keys[10000][4];
     for (int i = 0; i < 10000; i++) {
-        sprintf(keys[i], "%c%c%c", 'A' + (i/676)%26, 'A' + (i/26)%26, 'A' + i%26);
+        sprintf(keys[i], "%c%c%c", 'A' + (i / 676) % 26, 'A' + (i / 26) % 26,
+                'A' + i % 26);
         insert(list, keys[i], "AirportName");
     }
 
@@ -29,8 +28,6 @@ int main(int argc, char** argv)
             find(list, keys[i % 10000]);
         }
     }
-
     deleteList(list);
-
     return 0;
 }
